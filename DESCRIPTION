@@ -1,0 +1,27 @@
+Package: pineium
+Type: Package
+Title: pineium custom scrape package
+Version: 0.1.0
+Author: Neal Thomas Barsch
+Maintainer: Neal Thomas Barsch <neal@tenfourwest.com>
+Description: Useful RSelenium and piping xpath functions/misc useful to me functions
+License: License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.3.0),
+      httr,
+      rvest,
+      RSelenium,
+      data.table,
+      dplyr,
+      stringr,
+      foreach,
+      iterators,
+      XML,
+      readr,
+      xml2,
+      lubridate,
+      jsonlite,
+      qdapRegex
+URL: https://github.com/nbarsch/einium
+RoxygenNote: 6.0.1
