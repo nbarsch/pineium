@@ -10,6 +10,9 @@ rpack <- function(package_vector=c("data.table","dplyr","stringr","qdapRegex","f
     tempx <- as.character(package_vector[ipv])
     suppressWarnings(if(!(tempx %in% as.character(data.frame(installed.packages())$Package))){install.packages(as.character(tempx),repos='http://cran.us.r-project.org')})
     reqinstall <- tempx %in% as.character(installed.packages())
-    if(isTRUE(reqinstall)){print(paste0(as.character(tempx)," SUCCESSFULLY LOADED"))}else{print(paste0(as.character(tempx)," FAILED"))}
+    if(isTRUE(reqinstall)){
+      print(paste0(as.character(tempx)," SUCCESSFULLY LIBRARIED"))
+      library(as.character(tempx))
+      }else{print(paste0(as.character(tempx)," FAILED"))}
   }
 }
