@@ -4,8 +4,7 @@
 \alias{rpack}
 \title{rpack}
 \usage{
-rpack(package_vector = c("data.table", "dplyr", "stringr", "qdapRegex",
-  "foreach", "lubridate"))
+rpack(package_vector = "")
 }
 \arguments{
 \item{package_vector}{String vector of packages to check for and install if missing}
