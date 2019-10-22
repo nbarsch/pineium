@@ -4,8 +4,9 @@
 #' @param data
 #' @export
 allchar <- function(data){
+  dataobj <- get(data)
   require(dplyr)
-  data %>% mutate_all(as.character)->datachar
+  dataobj %>% mutate_all(as.character)->datachar
   return(datachar)
 }
 
