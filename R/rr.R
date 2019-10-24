@@ -7,12 +7,12 @@
 rr <- function(text,both=TRUE){
   if(!is.logical(both)){
     if(grepl("a",both)){
-      return(gsub("[[:alpha:]]","",text))
+      return(trimws(gsub("[[:alpha:]]","",text)))
     }
     if(grepl("p",both)){
-      return(gsub("[[:punct:]]","",text))
+      return(trimws(gsub("[[:punct:]]","",text)))
     }
   }else{
-    return(gsub("[[:alpha:]]","",gsub("[[:punct:]]","",text)))
+    return(trimws(gsub("[[:alpha:]]","",gsub("[[:punct:]]","",text))))
   }
 }
