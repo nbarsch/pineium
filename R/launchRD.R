@@ -8,15 +8,15 @@
 #' @param port  port number
 #' @export
 launchRD <- function(browser="chrome",cver="77.0.3865.40",adblock=FALSE, adblock_filepath=paste0(getwd(),"/adblock.crx"),notrack=TRUE, winsize= c(1280,800),browserargs=c("nosand","dispop","disnot"),headless=F, port=4444L){
+  library(pineium)
   if(isTRUE(headless)){
-    .libPaths("/home/neal/rpack")
-    library(einium)
-    library(curl)
-    system("kill -9 $(lsof -t -i:4444 -sTCP:LISTEN)")
-    system("kill -9 $(lsof -t -i:4445 -sTCP:LISTEN)")
+    if(!("/home/neal/rpack"%in%.libPaths())){.libPaths("/home/neal/rpack")}
     suppressWarnings(rm(remDr))
     suppressWarnings(rm(rD))
     gc()
+    library(einium)
+    library(curl)
+    system("kill -9 $(lsof -t -i:4567 -sTCP:LISTEN)")
     if(!exists("cver")){cver <-"77.0.3865.40" }
     library(RSelenium)
     #library(devtools)
@@ -24,12 +24,15 @@ launchRD <- function(browser="chrome",cver="77.0.3865.40",adblock=FALSE, adblock
       args = c('--headless', '--disable-gpu', '--window-size=1280,800')
       #extensions=list(base64enc::base64encode("/home/neal/tec_fblikes/alertblock.crx"))
     ))
+    rD <- chrome(version=cver)
+    #remDr <- remoteDriver(browserName="chrome",port=4567L,extraCapabilities=cprof)
+    remDr <- remoteDriver(browserName="chrome",port=4567L, extraCapabilities=eCaps)
     rs()
-    rD <- rsDriver(port=4444L,extraCapabilities = eCaps, browser="chrome", chromever = "77.0.3865.40")
+    remDr$open()
     rs()
-    remDr <- rD$client
-    rs()
-    return(list(rD,remDr))
+    print(paste0("list item 1: rD"))
+    print(paste0("list item 2: remDr"))
+
   }else{
 
 
