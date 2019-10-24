@@ -2,7 +2,6 @@
 #'
 #' remove punct/txt and get only number
 #'
-
 #' @export
 rr <- function(text,both=TRUE){
   if(!is.logical(both)){
