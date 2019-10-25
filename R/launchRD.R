@@ -9,6 +9,9 @@
 #' @export
 launchRD <- function(browser="chrome",cver="77.0.3865.40",adblock=FALSE, adblock_filepath=paste0(getwd(),"/adblock.crx"),notrack=TRUE, winsize= c(1280,800),browserargs=c("nosand","dispop","disnot"),headless=F, port=4444L){
   library(pineium)
+  library(RSelenium)
+  library(wdman)
+  library(binman)
   if(isTRUE(headless)){
     if(!("/home/neal/rpack"%in%.libPaths())){.libPaths("/home/neal/rpack")}
     suppressWarnings(rm(remDr))
