@@ -1,4 +1,4 @@
-#' rcheck
+9#' rcheck
 #'
 #' Check for and install package if missing
 #' @param package

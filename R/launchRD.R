@@ -12,15 +12,18 @@ launchRD <- function(browser="chrome",cver="77.0.3865.40",adblock=FALSE, adblock
   library(RSelenium)
   library(wdman)
   library(binman)
+  suppressWarnings(rm(remDr))
+  suppressWarnings(rm(rD))
+  gc()
   if(isTRUE(headless)){
     if(!("/home/neal/rpack"%in%.libPaths())){.libPaths("/home/neal/rpack")}
-    suppressWarnings(rm(remDr))
-    suppressWarnings(rm(rD))
-    gc()
-    library(einium)
+
+    library(pineium)
     library(curl)
     system("kill -9 $(lsof -t -i:4567 -sTCP:LISTEN)")
     if(!exists("cver")){cver <-"77.0.3865.40" }
+    library(wdman)
+    library(binman)
     library(RSelenium)
     #library(devtools)
     eCaps <- list(chromeOptions = list(
