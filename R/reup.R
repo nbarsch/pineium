@@ -7,7 +7,7 @@
 #' @export
 reup <- function(package="webbium", github_user="nbarsch",auth_token=NA, lib="default"){
   depack()
-  Sys.sleep(3)
+  Sys.sleep(1)
   if(lib=="default"){lib<-.libPaths()[1]}
   try(remove.packages(package, lib=lib))
   if(is.na(github_user)){
