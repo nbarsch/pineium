@@ -3,6 +3,7 @@
 export(allchar)
 export(authall)
 export(depack)
+export(dpack)
 export(gh)
 export(isFALSE)
 export(kX1)
