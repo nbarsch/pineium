@@ -23,7 +23,5 @@ reup <- function(package="webbium", github_user="nbarsch",auth_token=NA, lib="de
   library(package, character.only = T)
 }
 
-auth_token="98de0d9b9caebd6faa355ebfae610346986e43af"
 
 
-detachAllPackages()
