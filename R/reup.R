@@ -25,4 +25,3 @@ reup <- function(package="webbium", github_user="nealbotn",auth_token=NA, lib="d
 
 
 
-.rs.restartR()
