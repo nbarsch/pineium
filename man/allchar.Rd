@@ -6,6 +6,9 @@
 \usage{
 allchar(data)
 }
+\arguments{
+\item{data}{what data to convert}
+}
 \description{
 Convert data to all character columns
 }

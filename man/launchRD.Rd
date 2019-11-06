@@ -4,12 +4,19 @@
 \alias{launchRD}
 \title{launchRD}
 \usage{
-launchRD(browser = "chrome", cver = "77.0.3865.40", adblock = FALSE,
-  adblock_filepath = paste0(getwd(), "/adblock.crx"), notrack = TRUE,
-  winsize = c(1280, 800), browserargs = c("nosand", "dispop",
-  "disnot"), headless = F, port = 4444L)
+launchRD(timeout_pageload = "default", timeout_script = "default",
+  timeout_implicit = "default", browser = "chrome", cver = "AUTO",
+  adblock = FALSE, adblock_filepath = paste0(getwd(), "/adblock.crx"),
+  notrack = TRUE, winsize = c(1280, 800), browserargs = c("nosand",
+  "dispop", "disnot"), headless = F, port = 4444L)
 }
 \arguments{
+\item{timeout_pageload}{set a page load timeout in seconds, use a number without quotes as a number of seconds to set as timeout (default: 300 seconds)}
+
+\item{timeout_script}{set a script load timeout in seconds, use a number without quotes as a number of seconds to set as timeout (default: 30 seconds)}
+
+\item{timeout_implicit}{set a time to wait to find elements if not immediately available on page, use a number without quotes as number of seconds to set as timeout (default: 0, do not wait any time for elements not immediatly available)}
+
 \item{browser}{chrome or firefox}
 
 \item{winsize}{set window size of bot}
@@ -21,5 +28,5 @@ launchRD(browser = "chrome", cver = "77.0.3865.40", adblock = FALSE,
 \item{opt}{options to add (nosand=no sandbox; disnot=disable notifications; dispop=disable popups)}
 }
 \description{
-Primary fb likes function
+Primary selenium browser launcher
 }
