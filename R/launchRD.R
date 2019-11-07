@@ -17,7 +17,9 @@ launchRD <- function(timeout_pageload="default", timeout_script="default",timeou
   library(wdman)
   library(binman)
   if(grepl("AUTO",toupper(cver))){
-    cvers <- unlist(binman::list_versions("chromedriver"))
+    tryCatch(cvers <- word(system("chromedriver --version", intern=T),2,2),error=function(e){
+      try(cvers <- unlist(binman::list_versions("chromedriver")))
+    })
     if(length(cvers)>1){
       cvertwo <- substr(cvers,1,2)
       cvertwo <- unique(cvertwo)
