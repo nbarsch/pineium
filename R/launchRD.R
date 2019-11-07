@@ -10,7 +10,7 @@
 #' @param timeout_script set a script load timeout in seconds, use a number without quotes as a number of seconds to set as timeout (default: 30 seconds)
 #' @param timeout_implicit set a time to wait to find elements if not immediately available on page, use a number without quotes as number of seconds to set as timeout (default: 0, do not wait any time for elements not immediatly available)
 #' @export
-launchRD <- function(timeout_pageload="default", timeout_script="default",timeout_implicit="default",browser="chrome",cver="AUTO",adblock=FALSE, adblock_filepath=paste0(getwd(),"/adblock.crx"),notrack=TRUE, winsize= c(1280,800),browserargs=c("nosand","dispop","disnot"),headless=F, port=4444L){
+launchRD <- function(timeout_pageload="default", timeout_script="default",timeout_implicit="default",browser="chrome",cver="AUTO",adblock=FALSE, adblock_filepath=paste0(getwd(),"/adblock.crx"),notrack=TRUE, winsize= c(1280,800),browserargs=c("nosand","dispop","disnot"),headless=F, port=4567){
   library(pineium)
   library(RSelenium)
   library(stringr)
@@ -38,7 +38,7 @@ launchRD <- function(timeout_pageload="default", timeout_script="default",timeou
     gc()
     library(einium)
     library(curl)
-    system("kill -9 $(lsof -t -i:4567 -sTCP:LISTEN)")
+    system(paste0("kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
     #if(!exists("cver")){cver <-"77.0.3865.40" }
     library(RSelenium)
     #library(devtools)
@@ -46,8 +46,8 @@ launchRD <- function(timeout_pageload="default", timeout_script="default",timeou
       args = c('--headless', '--disable-gpu', '--window-size=1280,800')
       #extensions=list(base64enc::base64encode("/home/neal/tec_fblikes/alertblock.crx"))
     ))
-    rD <- chrome(version=cver)
-    remDr <- remoteDriver(browserName="chrome",port=4567L)
+    rD <- chrome(version=cver,port=as.integer(port))
+    remDr <- remoteDriver(browserName="chrome",port=port)
     #remDr <- remoteDriver(browserName="chrome",port=4567L, extraCapabilities=eCaps)
     rs()
     remDr$open()
@@ -92,7 +92,7 @@ launchRD <- function(timeout_pageload="default", timeout_script="default",timeou
     #                list(extensions =
     #                       list(base64enc::base64encode("/home/neal/Desktop/browserPlugs/browserPlugs.crx"))
     #                ))
-    system("kill -9 $(lsof -t -i:4567 -sTCP:LISTEN)")
+    system(paste0("kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
     if("nosand"%in%browserargs){cargs<-c("--no-sandbox")}else{cargs<-c()}
     if("disnot"%in%browserargs){cargs <- c(cargs,"--disable-notifications")}
     if("dispop"%in%browserargs){cargs <- c(cargs,"--disable-popup-blocking")}
@@ -124,9 +124,9 @@ launchRD <- function(timeout_pageload="default", timeout_script="default",timeou
       )
     }
 
-    rD <- chrome(version=cver)
+    rD <- chrome(version=cver,port=as.integer(port))
     #remDr <- remoteDriver(browserName="chrome",port=4567L)
-    remDr <- remoteDriver(browserName="chrome",port=4567L, extraCapabilities=eCaps)
+    remDr <- remoteDriver(browserName="chrome",port=port, extraCapabilities=eCaps)
     rs()
     remDr$open()
     rs()
