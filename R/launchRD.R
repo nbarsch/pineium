@@ -38,7 +38,6 @@ launchRD <- function(timeout_pageload="default", timeout_script="default",timeou
     suppressWarnings(rm(remDr))
     suppressWarnings(rm(rD))
     gc()
-    library(einium)
     library(curl)
     system(paste0("kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
     #if(!exists("cver")){cver <-"77.0.3865.40" }
