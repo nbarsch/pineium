@@ -12,19 +12,20 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
   system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
 
 
-  if(browser=="chrome"){
-    system("sudo apt-get install chromium-chromedriver -y")
-  }
+  #if(browser=="chrome"){
+  #  system("sudo apt-get install chromium-chromedriver -y")
+  #}
 
   if(!dir.exists("tempjar")){dir.create("tempjar")}else{try(file.remove("tempjar/selenium-server-standalone-3.141.59.jar"))}
   if(!file.exists("tempjar/selenium-server-standalone-3.141.59.jar")){
     #system("sudo apt-get install geckodriver")
     if(file.exists("tempjar/selenium-server-standalone-3.141.59.jar")){system("sudo rm -f tempjar/selenium-server-standalone-3.141.59.jar")}
-    system("wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar")
-    system("sudo mv -f selenium-server-standalone-3.141.59.jar tempjar/selenium-server-standalone-3.141.59.jar")
+    download.file(url="https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar",destfile="tempjar/selenium-server-standalone-3.141.59.jar")
+    #system("wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar")
+    #system("sudo mv -f selenium-server-standalone-3.141.59.jar tempjar/selenium-server-standalone-3.141.59.jar")
     Sys.sleep(1)
     #system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar",wait=T)
-    system("sudo chmod -R 777 tempjar")
+    #system("sudo chmod -R 777 tempjar")
     system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar")
     #Sys.setenv(Dwebdriver.chrome.driver="/usr/local/bin/selenium-server-standalone-3.141.59.jar")
     #Sys.setenv(Dwebdriver.gecko.driver="/home/neal/node_modules/geckodriver")
@@ -32,7 +33,7 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
     Sys.sleep(1)
   }
 
-  system("sudo java -jar tempjar/selenium-server-standalone-3.141.59.jar",wait=FALSE)
+  system(paste0("java -jar ",getwd(),"/tempjar/selenium-server-standalone-3.141.59.jar"),wait=FALSE)
   Sys.sleep(5)
   library(RSelenium)
   library(wdman)

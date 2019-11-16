@@ -15,8 +15,12 @@ lit_local <-function(port=4444,browser="chrome",headless=FALSE, retry_max=2){
   system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
   Sys.sleep(1)
   try(system("sudo docker stop $(sudo docker ps -a -q)"))
+  try(system("docker stop $(docker ps -a -q)"))
+
   Sys.sleep(1)
   try(system("sudo docker rm $(sudo docker ps -a -q)"))
+  try(system("docker rm $(docker ps -a -q)"))
+
   Sys.sleep(1)
   library(RSelenium)
   library(binman)
