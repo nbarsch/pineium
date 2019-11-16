@@ -8,12 +8,15 @@
 #' @export
 lit <- function(browser="chrome",port=4444,headless=FALSE,foo_priority=c("standalone","docker","local")){
   foodo <- FALSE
+  os <- tolower(Sys.info()[["sysname"]])
   while(foodo==FALSE){
     if(foo_priority[1]=="standalone"){
       remDr <- lit_standalone(browser=browser,port=port,headless=headless,retry_max=2)
     }
-    if(foo_priority[1]=="docker"){
-      remDr <- lit_docker(browser=browser,port=port,headless=headless,retry_max=2)
+    if(os!="windows"){
+      if(foo_priority[1]=="docker"){
+        remDr <- lit_docker(browser=browser,port=port,headless=headless,retry_max=2)
+      }
     }
     if(foo_priority[1]=="local"){
       remDr <- lit_local(browser=browser,port=port,headless=headless,retry_max=2)

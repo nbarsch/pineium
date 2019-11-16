@@ -8,7 +8,8 @@
 lit_local <-function(port=4444,browser="chrome",headless=FALSE, retry_max=2){
 
   os <- tolower(Sys.info()[["sysname"]])
-  if(os!="windows"){
+  noarm <- !grepl("arm",tolower(Sys.info()[["machine"]]))
+  if(os!="windows" & !isTRUE(noarm)){
     #install automated chrome driver
     if(!file.exists("/usr/local/bin/chromedriver")){
       system("export a=$(uname -m)")
@@ -20,6 +21,8 @@ lit_local <-function(port=4444,browser="chrome",headless=FALSE, retry_max=2){
       system(paste0('wget -O /tmp/chromedriver/chromedriver.zip http://chromedriver.storage.googleapis.com/',catvar,'/chromedriver_',os,'64.zip'))
       system("unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/")
     }
+  }
+  if(os!="windows"){
     browser <- tolower(browser)
     if(browser=="firefox"){print("WARNING: Firefox is more error prone than chrome on some platforms. If you hit an error, please try browser='chrome'")}
     Sys.sleep(2)

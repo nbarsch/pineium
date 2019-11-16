@@ -12,7 +12,8 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
   system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
 
   os <- tolower(Sys.info()[["sysname"]])
-  if(os!="windows"){
+  noarm <- !grepl("arm",tolower(Sys.info()[["machine"]]))
+  if(os!="windows" & !isTRUE(noarm)){
     #install automated chrome driver
     if(!file.exists("/usr/local/bin/chromedriver")){
       system("export a=$(uname -m)")

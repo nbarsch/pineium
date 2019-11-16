@@ -11,34 +11,38 @@ lit_docker <-function(port=4444,browser="chrome",headless=TRUE, retry_max=2){
     Sys.sleep(2)
   }
   #install automated chrome driver
-  if(!file.exists("/usr/local/bin/chromedriver")){
-    system("export a=$(uname -m)")
-    system("rm -r /tmp/chromedriver/")
-    system("mkdir /tmp/chromedriver/")
-    system("wget -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE")
-    catvar <- system("cat /tmp/chromedriver/LATEST_RELEASE",intern=T)
-    os <- tolower(Sys.info()[["sysname"]])
-    system(paste0('wget -O /tmp/chromedriver/chromedriver.zip http://chromedriver.storage.googleapis.com/',catvar,'/chromedriver_',os,'64.zip'))
-    system("unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/")
+  os <- tolower(Sys.info()[["sysname"]])
+  noarm <- !grepl("arm",tolower(Sys.info()[["machine"]]))
+  if(os!="windows" & !isTRUE(noarm)){
+    if(!file.exists("/usr/local/bin/chromedriver")){
+      system("export a=$(uname -m)")
+      system("rm -r /tmp/chromedriver/")
+      system("mkdir /tmp/chromedriver/")
+      system("wget -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE")
+      catvar <- system("cat /tmp/chromedriver/LATEST_RELEASE",intern=T)
+      os <- tolower(Sys.info()[["sysname"]])
+      system(paste0('wget -O /tmp/chromedriver/chromedriver.zip http://chromedriver.storage.googleapis.com/',catvar,'/chromedriver_',os,'64.zip'))
+      system("unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/")
+    }
   }
-
   library(RSelenium)
 
-
-  Sys.sleep(1)
-  port <- as.integer(port)
-  system(paste0("kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
-  system(paste0("kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
-  system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
-  Sys.sleep(1)
-  system("sudo docker stop $(sudo docker ps -a -q)")
-  Sys.sleep(1)
-  system("sudo docker rm $(sudo docker ps -a -q)")
-  Sys.sleep(1)
-  system(paste0('sudo docker pull selenium/standalone-',browser))
-  Sys.sleep(1)
-  system(paste0('sudo docker run -d -p ',port+1,":",port,' selenium/standalone-', browser))
-  Sys.sleep(6)
+  if(os!="windows"){
+    Sys.sleep(1)
+    port <- as.integer(port)
+    system(paste0("kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
+    system(paste0("kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
+    system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
+    Sys.sleep(1)
+    system("sudo docker stop $(sudo docker ps -a -q)")
+    Sys.sleep(1)
+    system("sudo docker rm $(sudo docker ps -a -q)")
+    Sys.sleep(1)
+    system(paste0('sudo docker pull selenium/standalone-',browser))
+    Sys.sleep(1)
+    system(paste0('sudo docker run -d -p ',port+1,":",port,' selenium/standalone-', browser))
+    Sys.sleep(6)
+  }
   oiter <- 0
   odone <-FALSE
   while(odone==FALSE){
