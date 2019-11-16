@@ -50,7 +50,7 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
       Sys.sleep(1)
     }
   }
-  system(paste0("java -jar ",getwd(),"/tempjar/selenium-server-standalone-3.141.59.jar"),wait=FALSE)
+  system("java -jar tempjar/selenium-server-standalone-3.141.59.jar",wait=FALSE)
   Sys.sleep(5)
   library(RSelenium)
   library(wdman)
