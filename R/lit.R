@@ -1,6 +1,7 @@
 #' lit()
 #'
-#' Primary selenium browser launcher
+#' Primary selenium browser launcher that reads your system info automatically and tries a series of selenium launches, keeping the first one that works.
+#' This function is designed to work across all operating system platforms AND 32-bit/64-bit infrastructure. Tested on 32-bit raspi4 with ubuntu 19.10, 64 bit ubuntu 18.04LTS, Mac (Darwin),and Windows 10
 #' @param browser chrome or firefox
 #' @param port  port number
 #' @param headless logical (TRUE or FALSE, no quotes) browse headlessly?
