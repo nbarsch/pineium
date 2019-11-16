@@ -6,6 +6,17 @@
 #' @param headless logical (TRUE or FALSE, no quotes) browse headlessly?
 #' @export
 lit_local <-function(port=4444,browser="chrome",headless=FALSE, retry_max=2){
+  #install automated chrome driver
+  if(!file.exists("/usr/local/bin/chromedriver")){
+    system("export a=$(uname -m)")
+    system("rm -r /tmp/chromedriver/")
+    system("mkdir /tmp/chromedriver/")
+    system("wget -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE")
+    catvar <- system("cat /tmp/chromedriver/LATEST_RELEASE",intern=T)
+    os <- tolower(Sys.info()[["sysname"]])
+    system(paste0('wget -O /tmp/chromedriver/chromedriver.zip http://chromedriver.storage.googleapis.com/',catvar,'/chromedriver_',os,'64.zip'))
+    system("unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/")
+  }
   browser <- tolower(browser)
   if(browser=="firefox"){print("WARNING: Firefox is more error prone than chrome on some platforms. If you hit an error, please try browser='chrome'")}
   Sys.sleep(2)

@@ -10,7 +10,21 @@ lit_docker <-function(port=4444,browser="chrome",headless=TRUE, retry_max=2){
     print("NOTE: WHEN USING DOCKER YOU ARE REQUIRED TO RUN HEADLESS, OVERRIDING AND USING headless=TRUE")
     Sys.sleep(2)
   }
+
+  #install automated chrome driver
+  if(!file.exists("/usr/local/bin/chromedriver")){
+    system("export a=$(uname -m)")
+    system("rm -r /tmp/chromedriver/")
+    system("mkdir /tmp/chromedriver/")
+    system("wget -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE")
+    catvar <- system("cat /tmp/chromedriver/LATEST_RELEASE",intern=T)
+    os <- tolower(Sys.info()[["sysname"]])
+    system(paste0('wget -O /tmp/chromedriver/chromedriver.zip http://chromedriver.storage.googleapis.com/',catvar,'/chromedriver_',os,'64.zip'))
+    system("unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/")
+  }
+
   library(RSelenium)
+
 
   Sys.sleep(1)
   port <- as.integer(port)

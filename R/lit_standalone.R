@@ -11,6 +11,19 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
   system(paste0("kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
   system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
 
+  #install automated chrome driver
+  if(!file.exists("/usr/local/bin/chromedriver")){
+    system("export a=$(uname -m)")
+    system("rm -r /tmp/chromedriver/")
+    system("mkdir /tmp/chromedriver/")
+    system("wget -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE")
+    catvar <- system("cat /tmp/chromedriver/LATEST_RELEASE",intern=T)
+    os <- tolower(Sys.info()[["sysname"]])
+    system(paste0('wget -O /tmp/chromedriver/chromedriver.zip http://chromedriver.storage.googleapis.com/',catvar,'/chromedriver_',os,'64.zip'))
+    system("unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/")
+  }
+
+
 
   #if(browser=="chrome"){
   #  system("sudo apt-get install chromium-chromedriver -y")
@@ -19,14 +32,15 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
   if(!dir.exists("tempjar")){dir.create("tempjar")}else{try(file.remove("tempjar/selenium-server-standalone-3.141.59.jar"))}
   if(!file.exists("tempjar/selenium-server-standalone-3.141.59.jar")){
     #system("sudo apt-get install geckodriver")
-    if(file.exists("tempjar/selenium-server-standalone-3.141.59.jar")){system("sudo rm -f tempjar/selenium-server-standalone-3.141.59.jar")}
-    download.file(url="https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar",destfile="tempjar/selenium-server-standalone-3.141.59.jar")
+    #if(file.exists("tempjar/selenium-server-standalone-3.141.59.jar")){system("sudo rm -f tempjar/selenium-server-standalone-3.141.59.jar")}
+    #download.file(url="https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar",destfile="tempjar/selenium-server-standalone-3.141.59.jar")
     #system("wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar")
     #system("sudo mv -f selenium-server-standalone-3.141.59.jar tempjar/selenium-server-standalone-3.141.59.jar")
     Sys.sleep(1)
     #system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar",wait=T)
     #system("sudo chmod -R 777 tempjar")
-    system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar")
+    system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar", wait=T)
+    Sys.sleep(1)
     Sys.setenv(Dwebdriver.chrome.driver="tempjar/selenium-server-standalone-3.141.59.jar")
     #Sys.setenv(Dwebdriver.gecko.driver="/home/neal/node_modules/geckodriver")
     #Sys.setenv(webdriver.gecko.driver="/home/neal/node_modules/geckodriver")
