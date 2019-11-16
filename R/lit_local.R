@@ -91,7 +91,7 @@ lit_local <-function(port=4444,browser="chrome",headless=FALSE, retry_max=2){
             if(length(unlist(list_versions("chromedriver")))>1){
               rD <- chrome(port=4444L, version=unlist(list_versions("chromedriver"))[length(unlist(list_versions("chromedriver")))-1])
             }else{
-              rD <- chrome(port=4444L, version=unlist(list_versions("chromedriver"))[1])
+              rD <- chrome(port=4444L, version=unlist(list_versions("chromedriver"))[length(unlist(list_versions("chromedriver")))])
             }
           }
         }
@@ -115,7 +115,7 @@ lit_local <-function(port=4444,browser="chrome",headless=FALSE, retry_max=2){
             if(length(unlist(list_versions("chromedriver")))>1){
               rD <- chrome(port=4444L, version=unlist(list_versions("chromedriver"))[length(unlist(list_versions("chromedriver")))-1])
             }else{
-              rD <- chrome(port=4444L, version=unlist(list_versions("chromedriver"))[1])
+              rD <- chrome(port=4444L, version=unlist(list_versions("chromedriver"))[length(unlist(list_versions("chromedriver")))])
             }
           }
         }
