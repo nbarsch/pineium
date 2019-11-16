@@ -32,7 +32,6 @@ lit <- function(browser="chrome",port=4444,headless=FALSE,foo_priority=c("standa
       success <- FALSE
       adone <- FALSE
       Sys.sleep(1)
-      aiter <- aiter+1
     }
     if(adone==FALSE){
       if(length(foo_priority)>1){
