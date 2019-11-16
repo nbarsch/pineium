@@ -27,7 +27,7 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
     #system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar",wait=T)
     #system("sudo chmod -R 777 tempjar")
     system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar")
-    #Sys.setenv(Dwebdriver.chrome.driver="/usr/local/bin/selenium-server-standalone-3.141.59.jar")
+    Sys.setenv(Dwebdriver.chrome.driver="tempjar/selenium-server-standalone-3.141.59.jar")
     #Sys.setenv(Dwebdriver.gecko.driver="/home/neal/node_modules/geckodriver")
     #Sys.setenv(webdriver.gecko.driver="/home/neal/node_modules/geckodriver")
     Sys.sleep(1)
