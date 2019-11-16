@@ -1,4 +1,4 @@
-#' lit(()
+#' lit()
 #'
 #' Primary selenium browser launcher
 #' @param browser chrome or firefox
@@ -34,8 +34,15 @@ lit <- function(browser="chrome",port=4444,headless=FALSE,foo_priority=c("standa
       Sys.sleep(1)
       aiter <- aiter+1
     }
-    if(adone==FALSE){if(length(foo_priority)>1){foo_priority <- foo_priority[2:length(foo_priority)]}}
-    if(isTRUE(adone)){print(paste0("SUCCESSFUL_LAUNCH_WITH_",foo_priority[1]));foodo<-TRUE}
+    if(adone==FALSE){
+      if(length(foo_priority)>1){
+        foo_priority <- foo_priority[2:length(foo_priority)]
+      }
+    }
+    if(isTRUE(adone)){
+      print(paste0("SUCCESSFUL_LAUNCH_WITH_",foo_priority[1]," browser=",toupper(browser)))
+      foodo<-TRUE
+    }
   }
   if(adone==FALSE){print("ERROR_LAUNCHING_SELENIUM_lit")}
 }
