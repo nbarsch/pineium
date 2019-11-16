@@ -22,14 +22,15 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
     if(file.exists("tempjar/selenium-server-standalone-3.141.59.jar")){system("sudo rm -f tempjar/selenium-server-standalone-3.141.59.jar")}
     system("wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar")
     system("sudo mv -f selenium-server-standalone-3.141.59.jar tempjar/selenium-server-standalone-3.141.59.jar")
-    system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar")
+    Sys.sleep(1)
+    system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar",wait=T)
     #Sys.setenv(Dwebdriver.chrome.driver="/usr/local/bin/selenium-server-standalone-3.141.59.jar")
     #Sys.setenv(Dwebdriver.gecko.driver="/home/neal/node_modules/geckodriver")
     #Sys.setenv(webdriver.gecko.driver="/home/neal/node_modules/geckodriver")
     Sys.sleep(1)
   }
 
-  system("java -jar tempjar/selenium-server-standalone-3.141.59.jar",wait=FALSE)
+  system("sudo java -jar tempjar/selenium-server-standalone-3.141.59.jar",wait=FALSE)
   Sys.sleep(5)
   library(RSelenium)
   library(wdman)
