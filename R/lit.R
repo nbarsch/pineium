@@ -54,5 +54,9 @@ lit <- function(browser="chrome",port=4444,headless=FALSE,foo_priority=c("standa
       foodo<-TRUE
     }
   }
-  if(adone==FALSE){print("ERROR_LAUNCHING_SELENIUM_lit")}else{return(remDr)}
+  if(adone==FALSE){
+    return(print("ERROR_LAUNCHING_SELENIUM_lit"))
+  }else{
+    return(remDr)
+  }
 }
