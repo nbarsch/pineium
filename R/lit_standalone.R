@@ -33,7 +33,7 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
   if(!file.exists("tempjar/selenium-server-standalone-3.141.59.jar")){
     #system("sudo apt-get install geckodriver")
     #if(file.exists("tempjar/selenium-server-standalone-3.141.59.jar")){system("sudo rm -f tempjar/selenium-server-standalone-3.141.59.jar")}
-    #download.file(url="https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar",destfile="tempjar/selenium-server-standalone-3.141.59.jar")
+    download.file(url="https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar",destfile="tempjar/selenium-server-standalone-3.141.59.jar")
     #system("wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar")
     #system("sudo mv -f selenium-server-standalone-3.141.59.jar tempjar/selenium-server-standalone-3.141.59.jar")
     Sys.sleep(1)
