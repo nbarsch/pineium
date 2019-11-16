@@ -16,22 +16,20 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
     system("sudo apt-get install chromium-chromedriver -y")
   }
 
-
-  if(!file.exists("/usr/local/bin/selenium-server-standalone-3.141.59.jar")){
+  if(!dir.exists("tempjar")){dir.create("tempjar")}else{try(file.remove("tempjar/selenium-server-standalone-3.141.59.jar"))}
+  if(!file.exists("tempjar/selenium-server-standalone-3.141.59.jar")){
     #system("sudo apt-get install geckodriver")
-    if(file.exists("/usr/local/bin/selenium-server-standalone-3.141.59.jar")){system("sudo rm -f /usr/local/bin/selenium-server-standalone-3.141.59.jar")}
-    if(file.exists("selenium-server-standalone-3.141.59.jar")){system("sudo rm -f /usr/local/bin/selenium-server-standalone-3.141.59.jar")}
+    if(file.exists("tempjar/selenium-server-standalone-3.141.59.jar")){system("sudo rm -f tempjar/selenium-server-standalone-3.141.59.jar")}
     system("wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar")
-    if(file.exists("/usr/local/bin/selenium-server-standalone-3.141.59.jar")){system("sudo rm -f /usr/local/bin/selenium-server-standalone-3.141.59.jar")}
-    system("sudo mv -f selenium-server-standalone-3.141.59.jar /usr/local/bin/selenium-server-standalone-3.141.59.jar")
-    system("unzip -n /usr/local/bin/selenium-server-standalone-3.141.59.jar")
+    system("sudo mv -f selenium-server-standalone-3.141.59.jar tempjar/selenium-server-standalone-3.141.59.jar")
+    system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar")
     #Sys.setenv(Dwebdriver.chrome.driver="/usr/local/bin/selenium-server-standalone-3.141.59.jar")
     #Sys.setenv(Dwebdriver.gecko.driver="/home/neal/node_modules/geckodriver")
     #Sys.setenv(webdriver.gecko.driver="/home/neal/node_modules/geckodriver")
     Sys.sleep(1)
   }
 
-  system("java -jar /usr/local/bin/selenium-server-standalone-3.141.59.jar",wait=FALSE)
+  system("java -jar tempjar/selenium-server-standalone-3.141.59.jar",wait=FALSE)
   Sys.sleep(5)
   library(RSelenium)
   library(wdman)
