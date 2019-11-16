@@ -18,6 +18,7 @@ lit_local <-function(port=4444,browser="chrome",headless=FALSE, retry_max=2){
       system("wget -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE")
       catvar <- system("cat /tmp/chromedriver/LATEST_RELEASE",intern=T)
       os <- tolower(Sys.info()[["sysname"]])
+      if(os!="windows" & os!="linux"){os <-"mac"}
       system(paste0('wget -O /tmp/chromedriver/chromedriver.zip http://chromedriver.storage.googleapis.com/',catvar,'/chromedriver_',os,'64.zip'))
       system("unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/")
     }

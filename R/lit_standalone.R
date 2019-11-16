@@ -30,6 +30,7 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
       system("wget -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE")
       catvar <- system("cat /tmp/chromedriver/LATEST_RELEASE",intern=T)
       os <- tolower(Sys.info()[["sysname"]])
+      if(os!="windows" & os!="linux"){os <-"mac"}
       system(paste0('wget -O /tmp/chromedriver/chromedriver.zip http://chromedriver.storage.googleapis.com/',catvar,'/chromedriver_',os,'64.zip'))
       system("unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/")
     }
