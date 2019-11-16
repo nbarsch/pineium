@@ -6,12 +6,20 @@
 #' @param headless logical (TRUE or FALSE, no quotes) browse headlessly?
 #' @export
 lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=2){
-  port <- as.integer(port)
-  system(paste0("kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
-  system(paste0("kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
-  system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
 
   os <- tolower(Sys.info()[["sysname"]])
+  if(os!="windows"){
+    Sys.sleep(1)
+    port <- as.integer(port)
+    system(paste0("kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
+    system(paste0("kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
+    system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
+    Sys.sleep(1)
+    system("sudo docker stop $(sudo docker ps -a -q)")
+    Sys.sleep(1)
+    system("sudo docker rm $(sudo docker ps -a -q)")
+    Sys.sleep(1)
+  }
   noarm <- !grepl("arm",tolower(Sys.info()[["machine"]]))
   if(os!="windows" & !isTRUE(noarm)){
     #install automated chrome driver
@@ -32,14 +40,15 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
     #  system("sudo apt-get install chromium-chromedriver -y")
     #}
 
-    if(!dir.exists("tempjar")){dir.create("tempjar")}else{try(file.remove("tempjar/selenium-server-standalone-3.141.59.jar"))}
+    if(!dir.exists("tempjar")){dir.create("tempjar")}
+    Sys.sleep(1)
     if(!file.exists("tempjar/selenium-server-standalone-3.141.59.jar")){
       #system("sudo apt-get install geckodriver")
       #if(file.exists("tempjar/selenium-server-standalone-3.141.59.jar")){system("sudo rm -f tempjar/selenium-server-standalone-3.141.59.jar")}
       download.file(url="https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar",destfile="tempjar/selenium-server-standalone-3.141.59.jar")
       #system("wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar")
       #system("sudo mv -f selenium-server-standalone-3.141.59.jar tempjar/selenium-server-standalone-3.141.59.jar")
-      Sys.sleep(1)
+      Sys.sleep(2)
       #system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar",wait=T)
       #system("sudo chmod -R 777 tempjar")
       system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar", wait=T)
@@ -50,6 +59,7 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
       Sys.sleep(1)
     }
   }
+  Sys.sleep(1)
   system("java -jar tempjar/selenium-server-standalone-3.141.59.jar",wait=FALSE)
   Sys.sleep(5)
   library(RSelenium)
