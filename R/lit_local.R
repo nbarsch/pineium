@@ -105,7 +105,20 @@ lit_local <-function(port=4444,browser="chrome",headless=FALSE, retry_max=2){
       }else{
         #rD <- tryCatch(rsDriver(port=port,browser="chrome"),error=function(e){return("ERROR_LAUNCHING_SELENIUM_LOCAL_HEADLESS")})
         Sys.sleep(1)
-        rD <- chrome(port=4444L, version=unlist(list_versions("chromedriver"))[1])
+        Sys.sleep(1)
+        if(length(unlist(list_versions("chromedriver")))>3){
+          rD <- chrome(port=4444L, version=unlist(list_versions("chromedriver"))[length(unlist(list_versions("chromedriver")))-3])
+        }else{
+          if(length(unlist(list_versions("chromedriver")))>2){
+            rD <- chrome(port=4444L, version=unlist(list_versions("chromedriver"))[length(unlist(list_versions("chromedriver")))-2])
+          }else{
+            if(length(unlist(list_versions("chromedriver")))>1){
+              rD <- chrome(port=4444L, version=unlist(list_versions("chromedriver"))[length(unlist(list_versions("chromedriver")))-1])
+            }else{
+              rD <- chrome(port=4444L, version=unlist(list_versions("chromedriver"))[1])
+            }
+          }
+        }
         Sys.sleep(1)
         #rD <- tryCatch(rsDriver(port=port,browser="chrome", extraCapabilities=eCaps),error=function(e){return("ERROR_LAUNCHING_SELENIUM_LOCAL_HEADLESS")})
         remDr <- remoteDriver(port=4444L,browser="chrome")
