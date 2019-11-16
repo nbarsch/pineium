@@ -7,6 +7,7 @@
 #' @param foo_priority vector of "standalone","docker","local" (up to all three) in order of priority of use (i.e. if you want to use standalone, with docker as backup, use foo_priority=c("standalone","docker"))
 #' @export
 lit <- function(browser="chrome",port=4444,headless=FALSE,foo_priority=c("standalone","docker","local")){
+  library(pineium)
   foodo <- FALSE
   os <- tolower(Sys.info()[["sysname"]])
   if(os=="windows"){
