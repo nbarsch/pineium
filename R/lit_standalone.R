@@ -7,9 +7,9 @@
 #' @export
 lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=2){
   port <- as.integer(port)
-  system(paste0("sudo kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
-  system(paste0("sudo kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
-  system(paste0("sudo kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
+  system(paste0("kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
+  system(paste0("kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
+  system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
 
 
   if(browser=="chrome"){
@@ -23,7 +23,9 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
     system("wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar")
     system("sudo mv -f selenium-server-standalone-3.141.59.jar tempjar/selenium-server-standalone-3.141.59.jar")
     Sys.sleep(1)
-    system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar",wait=T)
+    #system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar",wait=T)
+    system("sudo chmod -R 777 tempjar")
+    system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar")
     #Sys.setenv(Dwebdriver.chrome.driver="/usr/local/bin/selenium-server-standalone-3.141.59.jar")
     #Sys.setenv(Dwebdriver.gecko.driver="/home/neal/node_modules/geckodriver")
     #Sys.setenv(webdriver.gecko.driver="/home/neal/node_modules/geckodriver")

@@ -14,9 +14,9 @@ lit_docker <-function(port=4444,browser="chrome",headless=TRUE, retry_max=2){
 
   Sys.sleep(1)
   port <- as.integer(port)
-  system(paste0("sudo kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
-  system(paste0("sudo kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
-  system(paste0("sudo kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
+  system(paste0("kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
+  system(paste0("kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
+  system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
   Sys.sleep(1)
   system("sudo docker stop $(sudo docker ps -a -q)")
   Sys.sleep(1)

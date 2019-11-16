@@ -10,9 +10,9 @@ lit_local <-function(port=4444,browser="chrome",headless=FALSE, retry_max=2){
   if(browser=="firefox"){print("WARNING: Firefox is more error prone than chrome on some platforms. If you hit an error, please try browser='chrome'")}
   Sys.sleep(2)
   port <- as.integer(port)
-  system(paste0("sudo kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
-  system(paste0("sudo kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
-  system(paste0("sudo kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
+  system(paste0("kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
+  system(paste0("kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
+  system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
   Sys.sleep(1)
   try(system("sudo docker stop $(sudo docker ps -a -q)"))
   Sys.sleep(1)
