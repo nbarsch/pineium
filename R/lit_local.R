@@ -6,31 +6,35 @@
 #' @param headless logical (TRUE or FALSE, no quotes) browse headlessly?
 #' @export
 lit_local <-function(port=4444,browser="chrome",headless=FALSE, retry_max=2){
-  #install automated chrome driver
-  if(!file.exists("/usr/local/bin/chromedriver")){
-    system("export a=$(uname -m)")
-    system("rm -r /tmp/chromedriver/")
-    system("mkdir /tmp/chromedriver/")
-    system("wget -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE")
-    catvar <- system("cat /tmp/chromedriver/LATEST_RELEASE",intern=T)
-    os <- tolower(Sys.info()[["sysname"]])
-    system(paste0('wget -O /tmp/chromedriver/chromedriver.zip http://chromedriver.storage.googleapis.com/',catvar,'/chromedriver_',os,'64.zip'))
-    system("unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/")
-  }
-  browser <- tolower(browser)
-  if(browser=="firefox"){print("WARNING: Firefox is more error prone than chrome on some platforms. If you hit an error, please try browser='chrome'")}
-  Sys.sleep(2)
-  port <- as.integer(port)
-  system(paste0("kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
-  system(paste0("kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
-  system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
-  Sys.sleep(1)
-  try(system("sudo docker stop $(sudo docker ps -a -q)"))
-  try(system("docker stop $(docker ps -a -q)"))
 
-  Sys.sleep(1)
-  try(system("sudo docker rm $(sudo docker ps -a -q)"))
-  try(system("docker rm $(docker ps -a -q)"))
+  os <- tolower(Sys.info()[["sysname"]])
+  if(os!="windows"){
+    #install automated chrome driver
+    if(!file.exists("/usr/local/bin/chromedriver")){
+      system("export a=$(uname -m)")
+      system("rm -r /tmp/chromedriver/")
+      system("mkdir /tmp/chromedriver/")
+      system("wget -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE")
+      catvar <- system("cat /tmp/chromedriver/LATEST_RELEASE",intern=T)
+      os <- tolower(Sys.info()[["sysname"]])
+      system(paste0('wget -O /tmp/chromedriver/chromedriver.zip http://chromedriver.storage.googleapis.com/',catvar,'/chromedriver_',os,'64.zip'))
+      system("unzip -o /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/")
+    }
+    browser <- tolower(browser)
+    if(browser=="firefox"){print("WARNING: Firefox is more error prone than chrome on some platforms. If you hit an error, please try browser='chrome'")}
+    Sys.sleep(2)
+    port <- as.integer(port)
+    system(paste0("kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
+    system(paste0("kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
+    system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
+    Sys.sleep(1)
+    try(system("sudo docker stop $(sudo docker ps -a -q)"))
+    try(system("docker stop $(docker ps -a -q)"))
+
+    Sys.sleep(1)
+    try(system("sudo docker rm $(sudo docker ps -a -q)"))
+    try(system("docker rm $(docker ps -a -q)"))
+  }
 
   Sys.sleep(1)
   library(RSelenium)

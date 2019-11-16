@@ -10,7 +10,6 @@ lit_docker <-function(port=4444,browser="chrome",headless=TRUE, retry_max=2){
     print("NOTE: WHEN USING DOCKER YOU ARE REQUIRED TO RUN HEADLESS, OVERRIDING AND USING headless=TRUE")
     Sys.sleep(2)
   }
-
   #install automated chrome driver
   if(!file.exists("/usr/local/bin/chromedriver")){
     system("export a=$(uname -m)")
