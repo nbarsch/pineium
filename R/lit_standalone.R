@@ -40,7 +40,7 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
     #  system("sudo apt-get install chromium-chromedriver -y")
     #}
 
-    if(!dir.exists(paste0(getwd(),"/tempjar"))){dir.create(paste0(getwd(),"/tempjar"))}
+    if(!dir.exists("tempjar")){dir.create("tempjar")}
     Sys.sleep(1)
     if(!file.exists(paste0(getwd(),"/tempjar/selenium-server-standalone-3.141.59.jar"))){
       #system("sudo apt-get install geckodriver")
