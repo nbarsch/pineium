@@ -15,10 +15,10 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
     system(paste0("kill -9 $(lsof -t -i:",port+1," -sTCP:LISTEN)"))
     system(paste0("kill -9 $(lsof -t -i:",port-1," -sTCP:LISTEN)"))
     Sys.sleep(1)
-    system("sudo docker stop $(sudo docker ps -a -q)")
-    Sys.sleep(1)
-    system("sudo docker rm $(sudo docker ps -a -q)")
-    Sys.sleep(1)
+    #system("sudo docker stop $(sudo docker ps -a -q)")
+    #Sys.sleep(1)
+    #system("sudo docker rm $(sudo docker ps -a -q)")
+    #Sys.sleep(1)
   }
   noarm <- !grepl("arm",tolower(Sys.info()[["machine"]]))
   if(os!="windows" & isTRUE(noarm)){
@@ -51,7 +51,8 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
       Sys.sleep(2)
       #system("unzip -o tempjar/selenium-server-standalone-3.141.59.jar",wait=T)
       #system("sudo chmod -R 777 tempjar")
-      system(paste0("unzip -o ",getwd(),"/tempjar/selenium-server-standalone-3.141.59.jar"), wait=T)
+
+      system(paste0("unzip -o ",getwd(),"/tempjar/selenium-server-standalone-3.141.59.jar -d ",getwd(),"/tempjar/"), wait=T)
       Sys.sleep(1)
       Sys.setenv(Dwebdriver.chrome.driver=paste0(getwd(),"/tempjar/selenium-server-standalone-3.141.59.jar"))
       #Sys.setenv(Dwebdriver.gecko.driver="/home/neal/node_modules/geckodriver")
@@ -60,8 +61,7 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
     }
   }
 
-  Sys.sleep(1)
-  system(paste0("java -jar ",getwd(),"/tempjar/selenium-server-standalone-3.141.59.jar"), wait=F)
+  system(paste0("java -jar ",getwd(),"/tempjar/selenium-server-standalone-3.141.59.jar -port ",port), wait=F)
   Sys.sleep(5)
   library(RSelenium)
   library(wdman)
@@ -98,7 +98,7 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
   if(browser=="chrome"){
     if(isTRUE(headless)){
       eCaps <- list(chromeOptions = list(
-        args = c('--headless', '--disable-gpu', '--window-size=1280,800')
+        args = c('--headless', '--disable-gpu', '--window-size=1280,800',"--no-sandbox","--disable-notifications", "--disable-popup-blocking")
         #extensions=list(base64enc::base64encode("/home/neal/tec_fblikes/alertblock.crx"))
       )
       )
@@ -111,7 +111,10 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
 
     }else{
       Sys.sleep(1)
-      remDr <- remoteDriver(remoteServerAddr="localhost",port=port,browserName="chrome")
+      eCaps <- list(chromeOptions = list(
+        args = c("--no-sandbox","--disable-notifications", "--disable-popup-blocking")
+      ))
+      remDr <- remoteDriver(remoteServerAddr="localhost",port=port,browserName="chrome", extraCapabilities=eCaps)
       Sys.sleep(3)
       test_open <- tryCatch(remDr$open(),error=function(e){return("ERROR_LAUNCHING_SELENIUM_STANDALONE_GUI")})
       if(is.list(test_open)){test_open <-"SELENIUM_STANDALONE_LAUNCHED_SUCCESSFULLY : headless= FALSE browser= CHROME"}
