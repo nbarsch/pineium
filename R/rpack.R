@@ -4,7 +4,7 @@
 #' @param package_vector String vector of packages to check for and install if missing
 #' @export
 rpack <- function(package_vector=""){
-  if(package_vector==""){package_vector<-c("data.table","dplyr","foreach","stringr","readr","qdapRegex","rvest","httr","RSelenium","XML","xml2")}
+  if(package_vector==""){package_vector<-c("data.table","dplyr","foreach","stringr","readr","qdapRegex","rvest","httr","RSelenium","XML","xml2","R.utils")}
   if(!all(as.logical(sapply(as.character(package_vector),FUN=function(x){x%in%data.frame(installed.packages())$Package})))){
   suppressWarnings(if(!("foreach" %in% as.character(installed.packages()))){install.packages("foreach",repos='http://cran.us.r-project.org')})
   for(ipv in c(1:length(package_vector))){
