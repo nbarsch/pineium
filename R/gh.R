@@ -6,10 +6,14 @@
 #' @param remDr remote driver, i.e the one usually named remDr in examples
 #' @param xpath xpath of elements to search for
 #' @export
-gh <- function(opt="outerHTML",remDr, xpath="//*"){
-  randsleep()
-  ps1 <- unlist(remDr$getPageSource())
-  randsleep()
+gh <- function(opt="outerHTML",obj="remDr", xpath="//*"){
+  if(obj=="remDr"){
+    remDr <- get("remDr")
+    ps1 <- unlist(remDr$getPageSource())
+  }else{
+    objelem <- get(obj)
+    ps1 <- unlist(objelem$getElementAttribute("outerHTML"))
+  }
   rs1 <- read_html(ps1)
   rh1 <- html_nodes(rs1,xpath=xpath)
   dotab <- opt %in% c("tablelist","tabl")
