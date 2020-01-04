@@ -68,7 +68,7 @@ lit_standalone <-function(browser="chrome", port=4444,headless=FALSE, retry_max=
   library(wdman)
   library(binman)
   library(pineium)
-  library(devtools)
+  #library(devtools)
   library(curl)
 
   oiter <- 0

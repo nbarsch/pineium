@@ -45,7 +45,7 @@ lit_local <-function(port=4444,browser="chrome",headless=FALSE, retry_max=2){
   library(binman)
   library(wdman)
   library(httr)
-  library(devtools)
+  #library(devtools)
   oiter <- 0
   odone <-FALSE
   while(odone==FALSE){
