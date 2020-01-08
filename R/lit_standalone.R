@@ -47,8 +47,9 @@ lit_standalone <-function(browser="chrome", port=4445,headless=FALSE, firefox_pr
       }
 
       geckloc <- list.files("tempjar/","geckodriver",full.names=T)
-      system(paste0("tar -xvzf ",getwd(),"/tempjar/geckodriver*"))
-      #system("sudo mv geckodriver tempjar/geckodriver")
+      geckloc <- geckloc[str_sub(geckloc,-2,-1)=="gz"]
+      system(paste0("tar -xvzf ",geckloc))
+      system("sudo mv geckodriver tempjar/geckodriver")
       Sys.setenv(Dwebdriver.gecko.driver=paste0(getwd(),"/tempjar/geckodriver"))
       Sys.sleep(1)
     }
