@@ -46,11 +46,10 @@ lit_standalone <-function(browser="chrome", port=4445,headless=FALSE, firefox_pr
         download.file(url="https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz",destfile="tempjar/geckodriver-v0.26.0-linux32.tar.gz")
       }
 
-        system(paste0("tar -xvzf ",getwd(),"/tempjar/geckodriver*"))
-        system("sudo mv geckodriver tempjar/geckodriver")
-        Sys.setenv(Dwebdriver.gecko.driver=paste0(getwd(),"/tempjar/geckodriver"))
-        Sys.sleep(1)
-      }
+      system(paste0("tar -xvzf ",getwd(),"/tempjar/geckodriver*"))
+      system("sudo mv geckodriver tempjar/geckodriver")
+      Sys.setenv(Dwebdriver.gecko.driver=paste0(getwd(),"/tempjar/geckodriver"))
+      Sys.sleep(1)
     }
   }
   Sys.sleep(1)
