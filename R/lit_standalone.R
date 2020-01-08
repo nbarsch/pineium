@@ -40,14 +40,17 @@ lit_standalone <-function(browser="chrome", port=4445,headless=FALSE, firefox_pr
       btype <- Sys.info()[["machine"]]
       if(grepl("32",btype)){btype <- "32bit"}
       if(grepl("arm",btype)){btype<-"32bit"}
-      if(grepl("64",btype)){btype <- "64bit"}
       if(btype=="32bit"){
         download.file(url="https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux32.tar.gz",destfile="tempjar/geckodriver-v0.26.0-linux32.tar.gz")
+      }else{
+        download.file(url="https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz",destfile="tempjar/geckodriver-v0.26.0-linux32.tar.gz")
+      }
+
         system(paste0("tar -xvzf ",getwd(),"/tempjar/geckodriver*"))
         system("sudo mv geckodriver tempjar/geckodriver")
         Sys.setenv(Dwebdriver.gecko.driver=paste0(getwd(),"/tempjar/geckodriver"))
+        Sys.sleep(1)
       }
-
     }
   }
   Sys.sleep(1)
