@@ -5,14 +5,14 @@
 #' @param browser chrome or firefox
 #' @param port  port number
 #' @param headless logical (TRUE or FALSE, no quotes) browse headlessly?
-#' @param foo_priority vector of "standalone","docker","local" (up to all three) in order of priority of use (i.e. if you want to use standalone, with docker as backup, use foo_priority=c("standalone","docker"))
+#' @param foo vector of "standalone","docker","local" (up to all three) in order of priority of use (i.e. if you want to use standalone, with docker as backup, use foo=c("standalone","docker"))
 #' @export
-lit <- function(browser="chrome",port=4444,headless=FALSE,foo_priority=c("standalone","local","docker")){
+lit <- function(browser="chrome",port=4444,headless=FALSE,foo=c("standalone","local","docker")){
   library(pineium)
   foodo <- FALSE
   os <- tolower(Sys.info()[["sysname"]])
   if(os=="windows"){
-    foo_priority <- foo_priority[foo_priority!="docker"]
+    foo <- foo[foo!="docker"]
   }else{
     port <- as.integer(port)
     system(paste0("kill -9 $(lsof -t -i:",port," -sTCP:LISTEN)"))
@@ -21,14 +21,14 @@ lit <- function(browser="chrome",port=4444,headless=FALSE,foo_priority=c("standa
     Sys.sleep(1)
   }
   while(foodo==FALSE){
-    if(foo_priority[1]=="standalone"){
-      remDr <- lit_standalone(browser=browser,port=port,headless=headless,retry_max=2)
+    if(foo[1]=="standalone"){
+      remDr <-lit_standalone(browser=browser, port=port,headless=headless, firefox_profpath=NA,chrome_profpath=NA)
     }
-    if(foo_priority[1]=="docker"){
-        remDr <- lit_docker(browser=browser,port=port,headless=headless,retry_max=2)
+    if(foo[1]=="docker"){
+        remDr <- lit_docker(browser=browser, port=port,headless=headless)
     }
-    if(foo_priority[1]=="local"){
-      remDr <- lit_local(browser=browser,port=port,headless=headless,retry_max=2)
+    if(foo[1]=="local"){
+      remDr <-lit_local(browser=browser, port=port,headless=headless, firefox_profpath=NA,chrome_profpath=NA)
     }
     Sys.sleep(1.5)
     success <- FALSE
@@ -45,12 +45,12 @@ lit <- function(browser="chrome",port=4444,headless=FALSE,foo_priority=c("standa
       Sys.sleep(1)
     }
     if(adone==FALSE){
-      if(length(foo_priority)>1){
-        foo_priority <- foo_priority[2:length(foo_priority)]
+      if(length(foo)>1){
+        foo <- foo[2:length(foo)]
       }
     }
     if(isTRUE(adone)){
-      print(paste0("SUCCESSFUL_LAUNCH_WITH_",foo_priority[1]," browser=",toupper(browser)))
+      print(paste0("SUCCESSFUL_LAUNCH_WITH_",foo[1]," browser=",toupper(browser)))
       foodo<-TRUE
     }
   }
