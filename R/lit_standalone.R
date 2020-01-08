@@ -43,11 +43,12 @@ lit_standalone <-function(browser="chrome", port=4445,headless=FALSE, firefox_pr
       if(btype=="32bit"){
         download.file(url="https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux32.tar.gz",destfile="tempjar/geckodriver-v0.26.0-linux32.tar.gz")
       }else{
-        download.file(url="https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz",destfile="tempjar/geckodriver-v0.26.0-linux32.tar.gz")
+        download.file(url="https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz",destfile="tempjar/geckodriver-v0.26.0-linux64.tar.gz")
       }
 
+      geckloc <- list.files("tempjar/","geckodriver",full.names=T)
       system(paste0("tar -xvzf ",getwd(),"/tempjar/geckodriver*"))
-      system("sudo mv geckodriver tempjar/geckodriver")
+      #system("sudo mv geckodriver tempjar/geckodriver")
       Sys.setenv(Dwebdriver.gecko.driver=paste0(getwd(),"/tempjar/geckodriver"))
       Sys.sleep(1)
     }
