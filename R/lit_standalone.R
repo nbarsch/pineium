@@ -36,7 +36,7 @@ lit_standalone <-function(browser="chrome", port=4445,headless=FALSE, firefox_pr
       Sys.setenv(Dwebdriver.chrome.driver=paste0(getwd(),"/tempjar/selenium-server-standalone-3.141.59.jar"))
       Sys.sleep(1)
     }
-    if(browser=="firefox" & (!file.exists(paste0(getwd(),"/tempjar")))){
+    if(browser=="firefox" & (!file.exists(paste0(getwd(),"/tempjar/geckodriver")))){
       btype <- Sys.info()[["machine"]]
       if(grepl("32",btype)){btype <- "32bit"}
       if(grepl("arm",btype)){btype<-"32bit"}
