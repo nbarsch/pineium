@@ -41,7 +41,7 @@ lit_standalone <-function(browser="chrome", port=4445,headless=FALSE, firefox_pr
       if(grepl("32",btype)){btype <- "32bit"}
       if(grepl("arm",btype)){btype<-"32bit"}
       if(btype=="32bit"){
-        download.file(url="https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux32.tar.gz",destfile="tempjar/geckodriver-v0.26.0-linux32.tar.gz")
+        download.file(url="https://github.com/mozilla/geckodriver/releases/download/v0.17.0/geckodriver-v0.17.0-linux32.tar.gz",destfile="tempjar/geckodriver-v0.17.0-linux32.tar.gz")
       }else{
         download.file(url="https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz",destfile="tempjar/geckodriver-v0.26.0-linux64.tar.gz")
       }
@@ -50,6 +50,7 @@ lit_standalone <-function(browser="chrome", port=4445,headless=FALSE, firefox_pr
       geckloc <- geckloc[str_sub(geckloc,-2,-1)=="gz"]
       system(paste0("tar -xvzf ",geckloc))
       system("sudo mv geckodriver tempjar/geckodriver")
+      system("sudo chmod +x tempjar/geckodriver")
       Sys.setenv(Dwebdriver.gecko.driver=paste0(getwd(),"/tempjar/geckodriver"))
       Sys.sleep(1)
     }
@@ -90,8 +91,20 @@ lit_standalone <-function(browser="chrome", port=4445,headless=FALSE, firefox_pr
     remDr <- remoteDriver(remoteServerAddr="localhost",port=as.integer(port),browserName="firefox",extraCapabilities=eCaps)
     }else{
       if(!is.na(firefox_profpath)){
-        fprof <- getFirefoxProfile(firefox_profpath)
-        remDr <- remoteDriver(remoteServerAddr="localhost",port=as.integer(port),browserName="firefox",extraCapabilities=eCaps)
+        if(firefox_profpath=="make"){
+        fprof <- makeFirefoxProfile(
+          list(
+            "browser.cache.disk.enable" = FALSE,
+            "browser.cache.memory.enable" = FALSE,
+            "browser.cache.offline.enable" = FALSE,
+            "network.http.use-cache" = FALSE
+          )
+        )
+        }else{
+          fprof <- getFirefoxProfile(firefox_profpath)
+        }
+        remDr <- remoteDriver(remoteServerAddr="localhost",port=as.integer(port),browserName="firefox",extraCapabilities=fprof)
+        remDr$open()
 
       }else{
         remDr <- remoteDriver(remoteServerAddr="localhost",port=as.integer(port),browserName="firefox")
