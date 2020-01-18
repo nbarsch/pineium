@@ -4,10 +4,22 @@
 \alias{rvpn}
 \title{rvpn()}
 \usage{
-rvpn(trem = TRUE, vpn = "windscribe")
+rvpn(
+  trem = TRUE,
+  trem_time = 10,
+  vpn = "windscribe",
+  server = "default",
+  test_site = "https://cnn.com"
+)
 }
 \arguments{
-\item{test}{test remDr speed}
+\item{trem}{test using cnn connection speed}
+
+\item{trem_time}{max connection time or else reset}
+
+\item{server}{if you want to add "hops" for denver or a nord us4405.nordvpn.com}
+
+\item{test_site}{what test site to use to test browser speed (default cnn.com)}
 }
 \description{
 redo vpn connection (linux only)
