@@ -5,9 +5,11 @@
 \title{authall
 authenticate all for googleCloudStorageR and googleComputeEngineR}
 \usage{
-authall(project = "luxoydata",
+authall(
+  project = "luxoydata",
   auth_json = "/home/neal/redryzen_authin/luxoydata.json",
-  zone = "asia-east1-a")
+  zone = "asia-east1-a"
+)
 }
 \description{
 authall

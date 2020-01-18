@@ -4,8 +4,13 @@
 \alias{lit_standalone}
 \title{lit_standalone()}
 \usage{
-lit_standalone(browser = "chrome", port = 4444, headless = FALSE,
-  retry_max = 2)
+lit_standalone(
+  browser = "chrome",
+  port = 4445,
+  headless = FALSE,
+  firefox_profpath = NA,
+  chrome_profpath = NA
+)
 }
 \arguments{
 \item{browser}{chrome or firefox}

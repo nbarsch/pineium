@@ -4,14 +4,14 @@
 \alias{gh}
 \title{gh}
 \usage{
-gh(opt = "outerHTML", remDr, xpath = "//*")
+gh(opt = "outerHTML", obj = "remDr", xpath = "//*")
 }
 \arguments{
 \item{opt}{What result to return, one of outerHTML, innerHTML, href, text, tablelist, tabl, or other html attributes}
 
-\item{remDr}{remote driver, i.e the one usually named remDr in examples}
-
 \item{xpath}{xpath of elements to search for}
+
+\item{remDr}{remote driver, i.e the one usually named remDr in examples}
 }
 \description{
 Delete all columns in data object (data.table, data.frame, or tibble) from data

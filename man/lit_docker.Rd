@@ -4,8 +4,7 @@
 \alias{lit_docker}
 \title{lit_docker()}
 \usage{
-lit_docker(port = 4444, browser = "chrome", headless = TRUE,
-  retry_max = 2)
+lit_docker(port = 4445, browser = "chrome", headless = TRUE)
 }
 \arguments{
 \item{port}{port number}

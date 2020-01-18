@@ -4,8 +4,13 @@
 \alias{lit_local}
 \title{lit_local()}
 \usage{
-lit_local(port = 4444, browser = "chrome", headless = FALSE,
-  retry_max = 2)
+lit_local(
+  port = 4445,
+  browser = "chrome",
+  headless = FALSE,
+  chrome_profpath = NA,
+  firefox_profpath = NA
+)
 }
 \arguments{
 \item{port}{port number}

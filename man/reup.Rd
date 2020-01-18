@@ -4,8 +4,12 @@
 \alias{reup}
 \title{reup function}
 \usage{
-reup(package = "webbium", github_user = "nealbotn", auth_token = NA,
-  lib = "default")
+reup(
+  package = "webbium",
+  github_user = "nealbotn",
+  auth_token = NA,
+  lib = "default"
+)
 }
 \arguments{
 \item{package}{package to reinstall}

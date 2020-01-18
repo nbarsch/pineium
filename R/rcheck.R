@@ -1,7 +1,8 @@
-9#' rcheck
+#' rcheck
 #'
 #' Check for and install package if missing
-#' @param package
+#' @param package name of package
+#' @param github_user name of github user, for cran do "NA" or dont use argument
 #' @export
 rcheck <- function(package="data.table",github_user="NA"){
   if(package %in% installed.packages()){

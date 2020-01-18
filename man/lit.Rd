@@ -2,10 +2,14 @@
 % Please edit documentation in R/lit.R
 \name{lit}
 \alias{lit}
-\title{lit(()}
+\title{lit()}
 \usage{
-lit(browser = "chrome", port = 4444, headless = FALSE,
-  foo_priority = c("standalone", "docker", "local"))
+lit(
+  browser = "chrome",
+  port = 4444,
+  headless = FALSE,
+  foo = c("standalone", "local", "docker")
+)
 }
 \arguments{
 \item{browser}{chrome or firefox}
@@ -14,8 +18,9 @@ lit(browser = "chrome", port = 4444, headless = FALSE,
 
 \item{headless}{logical (TRUE or FALSE, no quotes) browse headlessly?}
 
-\item{foo_priority}{vector of "standalone","docker","local" (up to all three) in order of priority of use (i.e. if you want to use standalone, with docker as backup, use foo_priority=c("standalone","docker"))}
+\item{foo}{vector of "standalone","docker","local" (up to all three) in order of priority of use (i.e. if you want to use standalone, with docker as backup, use foo=c("standalone","docker"))}
 }
 \description{
-Primary selenium browser launcher
+Primary selenium browser launcher that reads your system info automatically and tries a series of selenium launches, keeping the first one that works.
+This function is designed to work across all operating system platforms AND 32-bit/64-bit infrastructure. Tested on 32-bit raspi4 with ubuntu 19.10, 64 bit ubuntu 18.04LTS, Mac (Darwin),and Windows 10
 }

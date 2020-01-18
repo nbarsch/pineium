@@ -9,8 +9,6 @@ splitfixed(x, n, i)
 \arguments{
 \item{x}{String}
 
-\item{n}{first iteration of _}
-
 \item{n}{last iteration of _}
 }
 \description{

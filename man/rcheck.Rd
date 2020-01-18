@@ -6,6 +6,11 @@
 \usage{
 rcheck(package = "data.table", github_user = "NA")
 }
+\arguments{
+\item{package}{name of package}
+
+\item{github_user}{name of github user, for cran do "NA" or dont use argument}
+}
 \description{
 Check for and install package if missing
 }

@@ -4,11 +4,20 @@
 \alias{launchRD}
 \title{launchRD}
 \usage{
-launchRD(timeout_pageload = "default", timeout_script = "default",
-  timeout_implicit = "default", browser = "chrome", cver = "AUTO",
-  adblock = FALSE, adblock_filepath = paste0(getwd(), "/adblock.crx"),
-  notrack = TRUE, winsize = c(1280, 800), browserargs = c("nosand",
-  "dispop", "disnot"), headless = F, port = 4567)
+launchRD(
+  timeout_pageload = "default",
+  timeout_script = "default",
+  timeout_implicit = "default",
+  browser = "chrome",
+  cver = "AUTO",
+  adblock = FALSE,
+  adblock_filepath = paste0(getwd(), "/adblock.crx"),
+  notrack = TRUE,
+  winsize = c(1280, 800),
+  browserargs = c("nosand", "dispop", "disnot"),
+  headless = F,
+  port = 4567
+)
 }
 \arguments{
 \item{timeout_pageload}{set a page load timeout in seconds, use a number without quotes as a number of seconds to set as timeout (default: 300 seconds)}

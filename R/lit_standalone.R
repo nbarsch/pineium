@@ -83,23 +83,23 @@ lit_standalone <-function(browser="chrome", port=4445,headless=FALSE, firefox_pr
 
   }else{
     if(isTRUE(headless)){
-    eCaps = list(
-      "moz:firefoxOptions" = list(
-        args = list('--headless')
+      eCaps = list(
+        "moz:firefoxOptions" = list(
+          args = list('--headless')
+        )
       )
-    )
-    remDr <- remoteDriver(remoteServerAddr="localhost",port=as.integer(port),browserName="firefox",extraCapabilities=eCaps)
+      remDr <- remoteDriver(remoteServerAddr="localhost",port=as.integer(port),browserName="firefox",extraCapabilities=eCaps)
     }else{
       if(!is.na(firefox_profpath)){
         if(firefox_profpath=="make"){
-        fprof <- makeFirefoxProfile(
-          list(
-            "browser.cache.disk.enable" = FALSE,
-            "browser.cache.memory.enable" = FALSE,
-            "browser.cache.offline.enable" = FALSE,
-            "network.http.use-cache" = FALSE
+          fprof <- makeFirefoxProfile(
+            list(
+              "browser.cache.disk.enable" = FALSE,
+              "browser.cache.memory.enable" = FALSE,
+              "browser.cache.offline.enable" = FALSE,
+              "network.http.use-cache" = FALSE
+            )
           )
-        )
         }else{
           fprof <- getFirefoxProfile(firefox_profpath)
         }
