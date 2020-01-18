@@ -3,7 +3,7 @@
 #' redo vpn connection (linux only)
 #' @param test test remDr speed
 #' @export
-rvpn <- function(trem=TRUE, vpn="windscribe"){
+rvpn <- function(trem=TRUE, trem_time=10,vpn="windscribe"){
   rdone <- FALSE
   while(rdone==FALSE){
     dip <- FALSE
@@ -22,7 +22,7 @@ rvpn <- function(trem=TRUE, vpn="windscribe"){
       stest <- system.time(remDr$navigate("https://cnn.com"))
       snum <- as.numeric(stest[3])
       print(paste0("test time cnn load: ",snum))
-      if(snum<5){rdone <- TRUE}else{rdone <- FALSE}
+      if(snum<trem_time){rdone <- TRUE}else{rdone <- FALSE}
     }
   }
 }
