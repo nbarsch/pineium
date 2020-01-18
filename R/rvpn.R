@@ -4,7 +4,6 @@
 #' @param test test remDr speed
 #' @export
 rvpn <- function(trem=TRUE, vpn="windscribe"){
-  if(!require("ipify")){remotes::install_github("gregce/ipify", upgrade="never")}
   rdone <- FALSE
   while(rdone==FALSE){
     dip <- FALSE
