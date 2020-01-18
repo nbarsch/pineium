@@ -3,7 +3,7 @@
 #' redo vpn connection (linux only)
 #' @param test test remDr speed
 #' @export
-rvpn <- function(trem=TRUE, trem_time=10,vpn="windscribe"){
+rvpn <- function(trem=TRUE, trem_time=10,vpn="windscribe",server="default"){
   rdone <- FALSE
   while(rdone==FALSE){
     dip <- FALSE
@@ -11,7 +11,11 @@ rvpn <- function(trem=TRUE, trem_time=10,vpn="windscribe"){
       tip <- system("curl ifconfig.me", intern=T)
       system(paste0(vpn," disconnect"))
       Sys.sleep(2)
-      system(paste0(vpn," connect"))
+      if(server=="default"){
+        system(paste0(vpn," connect"))
+      }else{
+        system(paste0(vpn," connect ", server))
+      }
       Sys.sleep(2)
       tip2 <- system("curl ifconfig.me", intern=T)
       if(tip!=tip2){dip <- TRUE}
