@@ -30,6 +30,6 @@ rvpn <- function(trem=TRUE, trem_time=10,vpn="windscribe",server="default", test
       snum <- as.numeric(stest[3])
       print(paste0("test time load: ",snum))
       if(snum<trem_time){rdone <- TRUE}else{rdone <- FALSE}
-    }
+    }else{rdone<-TRUE}
   }
 }
