@@ -25,4 +25,4 @@ Depends: R (>= 3.1.0),
       jsonlite,
       qdapRegex
 URL: https://github.com/nbarsch/pineium
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
