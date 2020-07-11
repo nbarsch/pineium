@@ -4,8 +4,8 @@
 \alias{rtn}
 \title{rtn()}
 \usage{
-rtn(string, both = TRUE)
+rtn(string)
 }
 \description{
-remove num/text and get only punct
+remove text/number and get only punct
 }

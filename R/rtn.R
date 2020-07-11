@@ -1,8 +1,8 @@
 #' rtn()
 #'
-#' remove num/text and get only punct
+#' remove text/number and get only punct
 #'
 #' @export
-rtn <- function(string,both=TRUE){
+rtn <- function(string){
   return(trimws(gsub("[[:alpha:]]","",gsub("[[:digit:]]","",string))))
 }

@@ -4,7 +4,7 @@
 \alias{rpn}
 \title{rpn()}
 \usage{
-rpn(string, both = TRUE)
+rpn(string)
 }
 \description{
 remove punct/number and get only text
