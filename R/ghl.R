@@ -7,6 +7,8 @@
 #' @param xpath xpath of elements to search for
 #' @export
 ghl <- function(opt="outerHTML",ps, xpath="//*"){
+  library(xml2)
+  library(rvest)
   rs1 <- read_html(ps)
   rh1 <- html_nodes(rs1,xpath=xpath)
   dotab <- opt %in% c("tablelist","tabl")
