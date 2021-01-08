@@ -16,7 +16,7 @@ gh <- function(opt="outerHTML",obj="remDr", xpath="//*"){
   }
   rs1 <- read_html(ps1)
   rh1 <- html_nodes(rs1,xpath=xpath)
-  dotab <- opt %in% c("tablelist","tabl")
+  dotab <- opt %in% c("tablelist","tabl","tab","table")
   if(isTRUE(dotab)){
     rp1 <- read_html(ps1)
     ra1 <- html_table(rp1)
